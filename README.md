@@ -1,24 +1,13 @@
 In the project directory, you can run:
 
-npm start
+npm install or yarn install
+npm start or yarn start
 
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+Dyanamic data is populating from STAR WARS api. (https://swapi.co/)
 
-npm test
+type-along search which searches for planets and lists them in components that are sized relative to their population on every keypress in the input field
 
-Launches the test runner in the interactive watch mode.
-See the section about running tests for more information.
-
-npm run build
-
-Builds the app for production to the build folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
-Your app is ready to be deployed!
-
-See the section about deployment for more information.
+and pagination also impleted for loading planets.
