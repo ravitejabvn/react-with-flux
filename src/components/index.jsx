@@ -10,12 +10,15 @@ export default class App extends Component {
 
   constructor() {
     super();
+
     this.state = {
+      username:'',
+      password:'',
       planets : [],
       planetUrl : '',
       searchingPlanets : [],
       temp : ''
-    }
+    };
   }
 
   componentDidMount() {
@@ -57,48 +60,73 @@ export default class App extends Component {
     // console.log(e.target.value);
     PlanetServices.searchPlanets(e.target.value);
   }
+
+  login = (e) => {
+    var userName = document.getElementById("userName").value;
+    var password = document.getElementById("password").value;
+    this.setState({username:userName,password:password});
+    console.log(userName,password);
+  }
   
   render() {
     var i = 0;
+    // console.log(this.state.username,this.state.password)
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Star Wars</h1>
         </header>
-        <div className="row">
-          <div className="col s12">
-            <input type="text" placeholder="search planets" onChange={this.searchPlanets}/>
-          </div>
-          <div className="row">
-            <div className="col s6">
-              {
-                this.state.planets.map(function(planet,key){
-                  return (
-                    <li key={key}><a href="javascript:void(0)">{planet.name}</a></li>
-                  );
-                })
-              }
-              <input type="button" className="btn" value="Load More" onClick={this.loadMorePlanets}/>
+        {
+          !this.state.username && !this.state.password ? 
+            <div>
+              <input type="text" placeholder="user name" id="userName"/>
+              <input type="text" placeholder="password" id="password"/>
+              <input type="button" value="Login" id="btnLogin" className="btn" onClick={this.login}/>
             </div>
-            <div className="col s6">
-              {
-                this.state.searchingPlanets && this.state.searchingPlanets.length >0 ? 
-                  this.state.searchingPlanets.map(function(planet,key){
-                    i++;
-                    var divStyle = {
-                      fontSize: 12+i+'px',
-                    };
-                    return (
-                      <li key={key} style={divStyle}><a href="javascript:void(0)">{planet.name}</a>, {planet.population}</li>
-                    );
-                  })
-                :
-                ''
-              }
-            </div>
-          </div>
-        </div>
+          :
+          ''
+        }
+        {
+          this.state.username === 'Luke Skywalker' && this.state.password === '19BBY' ?
+              <div className="row">
+                <div className="col s12">
+                  <input type="text" placeholder="search planets" onChange={this.searchPlanets}/>
+                </div>
+                <div className="row">
+                  <div className="col s6">
+                    {
+                      this.state.planets.map(function(planet,key){
+                        return (
+                          <li key={key}><a href="javascript:void(0)">{planet.name}</a></li>
+                        );
+                      })
+                    }
+                    <input type="button" className="btn" value="Load More" onClick={this.loadMorePlanets}/>
+                  </div>
+                  <div className="col s6">
+                    {
+                      this.state.searchingPlanets && this.state.searchingPlanets.length >0 ? 
+                        this.state.searchingPlanets.map(function(planet,key){
+                          i++;
+                          var divStyle = {
+                            fontSize: 12+i+'px',
+                          };
+                          return (
+                            <li key={key} style={divStyle}><a href="javascript:void(0)">{planet.name}</a>, {planet.population}</li>
+                          );
+                        })
+                      :
+                      ''
+                    }
+                  </div>
+                </div>
+              </div>
+          :
+          ''
+        }
+        
+
       </div>
     );
   }
